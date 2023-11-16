@@ -1,32 +1,21 @@
-import axios from "axios";
-import { useState, useEffect } from "react"
-import './App.css';
+import '../node_modules/bootstrap/dist/css/bootstrap.css'
+import { Routes, Route } from "react-router-dom";
+import Navbar from "./Components/Navbar";
+import Recipes from "./Components/Recipes";
+import Home from './Components/Home';
 
 function App() {
 
-  const [categories, setCategories] = useState([]);
-
-  useEffect(() => {
-    axios.get("https://www.themealdb.com/api/json/v1/1/categories.php").then((response) => {
-      setCategories(response.data.categories)
-    }).catch((error) => {
-      console.error('Error fetching data:', error);
-    });
-  }, [])
-
-
   return (
-    <div className="App">
-      <h1>Food Recipe App</h1>
-      <div className="categories">
-        {categories.map((category) => (
-          <div key={category.idCategory} className="category">
-            <h2>{category.strCategory}</h2>
-            <img src={category.strCategoryThumb} alt={category.strCategory} />
-          </div>
-        ))}
-      </div>
+    <>
+    <div style={{background:"#3b8d99"}}>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<Home />}></Route>
+        <Route path="/recipes" element={<Recipes />}></Route>
+      </Routes>
     </div>
+    </>
   );
 }
 
